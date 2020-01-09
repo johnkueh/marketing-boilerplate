@@ -15,8 +15,8 @@ export default ({ data, pageContext }) => {
       {previous === false ? null : (
         <>
           {previous && (
-            <Link to={previous.fields.slug}>
-              <p>{previous.frontmatter.title}</p>
+            <Link to={`articles${previous.fields.slug}`}>
+              <p>Previously: {previous.frontmatter.title}</p>
             </Link>
           )}
         </>
@@ -24,8 +24,8 @@ export default ({ data, pageContext }) => {
       {next === false ? null : (
         <>
           {next && (
-            <Link to={next.fields.slug}>
-              <p>{next.frontmatter.title}</p>
+            <Link to={`articles${next.fields.slug}`}>
+              <p>Read next: {next.frontmatter.title}</p>
             </Link>
           )}
         </>
