@@ -3,11 +3,14 @@ const path = require(`path`);
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
-  const template = path.resolve("src/templates/post.tsx");
+  const template = path.resolve("src/templates/article.tsx");
 
   const result = await graphql(`
     {
-      allMdx {
+      allMdx(
+        sort: { fields: [frontmatter___date], order: DESC }
+        filter: { frontmatter: { published: { eq: true } } }
+      ) {
         nodes {
           fields {
             slug
@@ -20,14 +23,19 @@ exports.createPages = async ({ actions, graphql }) => {
     }
   `);
 
-  const posts = result.data.allMdx.nodes;
+  const articles = result.data.allMdx.nodes;
 
-  posts.forEach(post => {
+  articles.forEach((article, index) => {
+    const previous = index === articles.length - 1 ? null : articles[index + 1];
+    const next = index === 0 ? null : articles[index - 1];
+
     createPage({
-      path: `/articles${post.fields.slug}`,
+      path: `/articles${article.fields.slug}`,
       component: template,
       context: {
-        slug: post.fields.slug
+        slug: article.fields.slug,
+        previous,
+        next
       }
     });
   });
