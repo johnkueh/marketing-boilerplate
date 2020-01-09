@@ -1,8 +1,9 @@
+import { Box, Text } from "@chakra-ui/core";
 import { Link } from "@reach/router";
 import { graphql } from "gatsby";
 import React from "react";
-import Layout from "../components/layout";
-import SEO from "../components/seo";
+import Layout from "../components/Layout";
+import SEO from "../components/SEO";
 
 interface Props {
   data: any;
@@ -11,17 +12,22 @@ interface Props {
 const Articles: React.FC<Props> = ({ data }) => (
   <Layout>
     <SEO title="Articles" />
-    <h1>Articles</h1>
+    <Text fontWeight="bold" fontSize="5xl" as="h1">
+      Articles
+    </Text>
     {data.allMdx.nodes.map(({ excerpt, frontmatter, fields }) => (
-      <>
+      <Box mt={8}>
         <Link to={`/articles${fields.slug}`}>
-          <p>{frontmatter.title}</p>
+          <Text as="h2" fontWeight="bold" fontSize="3xl">
+            {frontmatter.title}
+          </Text>
         </Link>
-        <p>{excerpt}</p>
-        <p>{frontmatter.date}</p>
-      </>
+        <Text as="p">{excerpt}</Text>
+        <Text mt={3} as="p">
+          {frontmatter.date}
+        </Text>
+      </Box>
     ))}
-    <Link to="/">Back to home</Link>
   </Layout>
 );
 

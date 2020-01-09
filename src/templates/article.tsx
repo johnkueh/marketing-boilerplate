@@ -1,7 +1,9 @@
+import { Box, Text } from "@chakra-ui/core";
+import { MDXProvider } from "@mdx-js/react";
 import { graphql, Link } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import React from "react";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 
 export default ({ data, pageContext }) => {
   const { frontmatter, body } = data.mdx;
@@ -9,9 +11,18 @@ export default ({ data, pageContext }) => {
 
   return (
     <Layout>
-      <h1>{frontmatter.title}</h1>
-      <p>{frontmatter.date}</p>
-      <MDXRenderer>{body}</MDXRenderer>
+      <Text fontWeight="bold" fontSize={30} as="h1">
+        {frontmatter.title}
+      </Text>
+      <Text as="h2" fontSize={22}>
+        {frontmatter.date}
+      </Text>
+
+      <Box my={10}>
+        <MDXProvider components={components}>
+          <MDXRenderer>{body}</MDXRenderer>
+        </MDXProvider>
+      </Box>
       {previous === false ? null : (
         <>
           {previous && (
@@ -32,6 +43,10 @@ export default ({ data, pageContext }) => {
       )}
     </Layout>
   );
+};
+
+const components = {
+  h2: props => <Text as="h2" fontSize="4xl" fontWeight="bold" {...props} />
 };
 
 export const query = graphql`
