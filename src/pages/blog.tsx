@@ -12,11 +12,13 @@ const Blog: React.FC<Props> = ({ data }) => (
   <Layout>
     <SEO title="Blog" />
     <h1>Blog</h1>
-    {data.allMdx.nodes.map(({ excerpt, frontmatter }) => (
+    {data.allMdx.nodes.map(({ excerpt, frontmatter, fields }) => (
       <>
-        <h2>{frontmatter.title}</h2>
-        <p>{frontmatter.date}</p>
+        <Link to={fields.slug}>
+          <p>{frontmatter.title}</p>
+        </Link>
         <p>{excerpt}</p>
+        <p>{frontmatter.date}</p>
       </>
     ))}
     <Link to="/">Back to home</Link>
@@ -35,6 +37,9 @@ export const query = graphql`
         frontmatter {
           title
           date
+        }
+        fields {
+          slug
         }
       }
     }
