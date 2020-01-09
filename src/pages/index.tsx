@@ -11,7 +11,7 @@ const IndexPage = () => {
       <SEO title="Home" />
       <h1>{title}</h1>
       <p>{description}</p>
-      <Link to="/blog">Go to blog</Link>
+      <Link to="/articles">Go to blog</Link>
     </Layout>
   );
 };

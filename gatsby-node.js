@@ -24,7 +24,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
   posts.forEach(post => {
     createPage({
-      path: post.fields.slug,
+      path: `/articles${post.fields.slug}`,
       component: template,
       context: {
         slug: post.fields.slug

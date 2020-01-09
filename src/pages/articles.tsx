@@ -8,13 +8,13 @@ interface Props {
   data: any;
 }
 
-const Blog: React.FC<Props> = ({ data }) => (
+const Articles: React.FC<Props> = ({ data }) => (
   <Layout>
-    <SEO title="Blog" />
-    <h1>Blog</h1>
+    <SEO title="Articles" />
+    <h1>Articles</h1>
     {data.allMdx.nodes.map(({ excerpt, frontmatter, fields }) => (
       <>
-        <Link to={fields.slug}>
+        <Link to={`/articles${fields.slug}`}>
           <p>{frontmatter.title}</p>
         </Link>
         <p>{excerpt}</p>
@@ -46,4 +46,4 @@ export const query = graphql`
   }
 `;
 
-export default Blog;
+export default Articles;
