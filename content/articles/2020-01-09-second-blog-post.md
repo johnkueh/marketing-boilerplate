@@ -7,3 +7,5 @@ description: Testing a second article
 ## Article H2
 
 * This time with rich text
+
+![Aeroplane SVG](/img/airplane-flow@2x.png "Aeroplane SVG")
